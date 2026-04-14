@@ -122,8 +122,15 @@ def build_dataset():
             all_waveforms.append(waveform)
             all_labels.append(label_idx)
 
+            target_len = int(CLIP_DURATION * SAMPLE_RATE)
             for _ in range(AUGMENT_FACTOR):
                 aug = augment(samples=waveform, sample_rate=SAMPLE_RATE)
+                # TimeStretch can make the clip longer or shorter than target_len.
+                # Trim or pad back to exactly target_len so np.array() can stack them.
+                if len(aug) > target_len:
+                    aug = aug[:target_len]
+                elif len(aug) < target_len:
+                    aug = np.pad(aug, (0, target_len - len(aug)))
                 all_waveforms.append(aug.astype(np.float32))
                 all_labels.append(label_idx)
 
