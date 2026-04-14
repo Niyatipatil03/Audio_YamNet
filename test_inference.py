@@ -14,10 +14,10 @@ import librosa
 import tensorflow as tf
 
 
-OUTPUT_DIR    = "output"
-SAMPLE_RATE   = 16000
-CLIP_DURATION = 3.0
-TFLITE_PATH   = os.path.join(OUTPUT_DIR, "bsr_noise_classifier_quantized.tflite")
+OUTPUT_DIR       = "output"
+SAMPLE_RATE      = 16000
+CLIP_DURATION    = 3.0
+TFLITE_PATH      = os.path.join(OUTPUT_DIR, "bsr_noise_classifier_quantized.tflite")
 CLASS_NAMES_PATH = os.path.join(OUTPUT_DIR, "class_names.txt")
 
 
@@ -46,10 +46,18 @@ def predict(audio_path):
     input_details  = interpreter.get_input_details()
     output_details = interpreter.get_output_details()
 
-    # Run inference
-    interpreter.set_tensor(input_details[0]['index'], waveform[np.newaxis, :])
+    expected_shape = tuple(input_details[0]['shape'])
+    print(f"Model expects input shape: {expected_shape}")
+
+    # Reshape waveform to match the model's expected input shape exactly.
+    # BSRInferenceModel.infer was traced with shape=[WINDOW_SAMPLES] (1-D),
+    # so do NOT add a batch dimension here.
+    interpreter.set_tensor(input_details[0]['index'], waveform)
     interpreter.invoke()
-    probs = interpreter.get_tensor(output_details[0]['index'])[0]
+    probs = interpreter.get_tensor(output_details[0]['index'])
+
+    # probs may be shape [num_classes] or [1, num_classes] depending on TFLite version
+    probs = probs.flatten()
 
     # Print results
     print("\n── BSR Noise Prediction ──────────────────")
