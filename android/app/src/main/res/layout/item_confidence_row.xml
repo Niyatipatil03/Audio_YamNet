@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    One row in the "All Classes" confidence section.
+    [ Class Name ]  [████████░░░░░░░░░░]  72%
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingVertical="5dp">
+
+    <!-- Noise class name -->
+    <TextView
+        android:id="@+id/tvClassName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.1"
+        android:text="Class"
+        android:textColor="@color/text_primary"
+        android:textSize="13sp" />
+
+    <!-- Horizontal progress bar -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="0dp"
+        android:layout_height="10dp"
+        android:layout_weight="2.2"
+        android:max="100"
+        android:progress="0"
+        android:progressTint="@color/accent_blue"
+        android:progressBackgroundTint="@color/progress_track" />
+
+    <!-- Percentage label -->
+    <TextView
+        android:id="@+id/tvPct"
+        android:layout_width="36dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:gravity="end"
+        android:text="0%"
+        android:textColor="@color/text_secondary"
+        android:textSize="12sp" />
+
+</LinearLayout>

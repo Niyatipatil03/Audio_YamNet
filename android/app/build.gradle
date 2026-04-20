@@ -1,0 +1,65 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace     'com.bsr.noiseclassifier'
+    compileSdk    34
+
+    defaultConfig {
+        applicationId   "com.bsr.noiseclassifier"
+        minSdk          21          // Android 5.0+ covers almost all field devices
+        targetSdk       34
+        versionCode     1
+        versionName     "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled   true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
+                          'proguard-rules.pro'
+        }
+        debug {
+            applicationIdSuffix ".debug"
+            debuggable true
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+
+    // Prevent Gradle from compressing the .tflite file inside the APK.
+    // The TFLite Interpreter uses memory-mapped I/O, which only works if
+    // the file is stored uncompressed.
+    androidResources {
+        noCompress 'tflite'
+    }
+}
+
+dependencies {
+    implementation 'androidx.core:core-ktx:1.12.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.11.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.cardview:cardview:1.0.0'
+
+    // TensorFlow Lite — core interpreter + support library (tensor I/O helpers)
+    implementation 'org.tensorflow:tensorflow-lite:2.14.0'
+    implementation 'org.tensorflow:tensorflow-lite-support:0.4.4'
+
+    // Coroutines for non-blocking audio capture and inference
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.7.0'
+}

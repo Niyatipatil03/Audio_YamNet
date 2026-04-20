@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Backgrounds -->
+    <color name="bg_dark">#0F1117</color>
+    <color name="card_bg">#1C1F2B</color>
+
+    <!-- Accent -->
+    <color name="accent_blue">#2979FF</color>
+
+    <!-- Text -->
+    <color name="text_primary">#E8EAF0</color>
+    <color name="text_secondary">#7B8099</color>
+
+    <!-- Progress bar empty track -->
+    <color name="progress_track">#2A2D3E</color>
+
+    <!-- Required by Material / AppCompat themes -->
+    <color name="colorPrimary">#2979FF</color>
+    <color name="colorPrimaryVariant">#1A56CC</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+    <color name="colorSecondary">#2979FF</color>
+    <color name="colorOnSecondary">#FFFFFF</color>
+    <color name="colorSurface">#1C1F2B</color>
+    <color name="colorOnSurface">#E8EAF0</color>
+    <color name="colorBackground">#0F1117</color>
+    <color name="colorOnBackground">#E8EAF0</color>
+    <color name="colorError">#CF6679</color>
+    <color name="colorOnError">#000000</color>
+</resources>
